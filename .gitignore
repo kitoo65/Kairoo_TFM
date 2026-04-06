@@ -1,0 +1,28 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter / macOS
+.ipynb_checkpoints/
+.DS_Store
+
+# Data
+*.parquet
+*.csv
+*.zip
+
+# Models / outputs
+model/
+models/
+archive/
+reports/
+logs/
+*.pkl
+*.joblib
+*.png
+
+# Streamlit cache
+.streamlit/secrets.toml
