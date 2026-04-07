@@ -320,7 +320,7 @@ with input_col2:
         "Address in Barcelona",
         placeholder="Example: Carrer de Mallorca 401, Barcelona",
     )
-    search_clicked = st.button("Find closest stations", use_container_width=True)
+    search_clicked = st.button("Find closest stations", width="stretch")
 
 
 # =========================================================
@@ -378,7 +378,7 @@ if "nearest_df" in st.session_state:
         display_df = nearest_df[["station_id", "distance_m"]].rename(
             columns={"station_id": "Station ID", "distance_m": "Distance (m)"}
         )
-        st.dataframe(display_df, use_container_width=True, hide_index=True)
+        st.dataframe(display_df, width="stretch", hide_index=True)
 
         suggested_station = st.selectbox(
             "Use one of these stations",
@@ -387,7 +387,7 @@ if "nearest_df" in st.session_state:
             key="nearest_station_selectbox",
         )
 
-        if st.button("Use this suggested station", use_container_width=True):
+        if st.button("Use this suggested station", width="stretch"):
             st.session_state.pending_station_id = int(suggested_station)
             st.rerun()
 
@@ -497,7 +497,7 @@ if _window_exceeded:
 predict_clicked = st.button(
     "Predict",
     type="primary",
-    use_container_width=True,
+    width="stretch",
     disabled=_window_exceeded,
 )
 
@@ -524,17 +524,17 @@ if predict_clicked and not _window_exceeded:
         matched_pd = pd.Timestamp(result.matched_snapshot_utc)
         details_df = pd.DataFrame(
             [
-                ["Station ID", result.station_id],
-                ["Target datetime (Europe/Madrid)", result.target_local],
-                ["Anchor timestamp (Europe/Madrid)", format_ts_madrid(anchor_pd)],
-                ["Matched snapshot (Europe/Madrid)", format_ts_madrid(matched_pd)],
-                ["Match gap (minutes)", result.matched_delay_minutes],
-                ["Capacity", result.capacity],
-                ["Predicted ebike share", result.predicted_ebike_share],
+                ["Station ID", str(result.station_id)],
+                ["Target datetime (Europe/Madrid)", str(result.target_local)],
+                ["Anchor timestamp (Europe/Madrid)", str(format_ts_madrid(anchor_pd))],
+                ["Matched snapshot (Europe/Madrid)", str(format_ts_madrid(matched_pd))],
+                ["Match gap (minutes)", str(result.matched_delay_minutes)],
+                ["Capacity", str(result.capacity)],
+                ["Predicted ebike share", f"{result.predicted_ebike_share:.4f}"],
             ],
             columns=["Field", "Value"],
         )
-        st.dataframe(details_df, use_container_width=True, hide_index=True)
+        st.dataframe(details_df, width="stretch", hide_index=True)
 
         st.info("Physical constraints enforced: 0 ≤ ebikes ≤ total ≤ capacity")
 
